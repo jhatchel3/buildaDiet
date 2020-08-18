@@ -17,13 +17,6 @@ function getFoods(query, maxResults = 10) {
   const queryString = formatQueryParams(params);
   const url = searchURL + queryString;
 
-  //   console.log(url);
-
-  const options = {
-    // headers: new Headers({
-    //   "x-rapidapi-key": apikey})
-  };
-
   fetch(url)
     .then((response) => response.json())
     .then((responseJson) => displayResults(responseJson));
@@ -35,6 +28,11 @@ function getMacros(responseJson) {
   let nutrients = [];
   for (let i = 0; i < responseJson.foods.length; i++) {
     nutrients = responseJson.foods[i].foodNutrients.filter(checkNutrients);
+    for (let j = 0; j < nutrients.length; j++) {
+      if (nutrients[j].nutrientName == "Carbohydrate, by difference") {
+        nutrients[j].nutrientName = "Carbohydrates";
+      }
+    }
     responseJson.foods[i].foodNutrients = nutrients;
   }
   return responseJson;
@@ -59,27 +57,29 @@ function displayResults(responseJson) {
 
   $("#results-list").empty();
   // iterate through the items array
+  if (responseJson.foods.length == 0) {
+    $("#results-list").append(`<p> Food Not Found Please Try Again </p>`);
+  }
+  $("#results-list").append();
   for (let i = 0; i < responseJson.foods.length; i++) {
     //<p>${nutrients[i].name}</p>
     // we want to display the name, protein fats and  carbs
-
+    const foodList = `foodList${i}`;
     $("#results-list").append(
-      `<ul>
-      <li><h3>${responseJson.foods[i].description}</h3>
-         <p>${responseJson.foods[i].foodNutrients[0].nutrientName}</p>
-         <p>${responseJson.foods[i].foodNutrients[0].value}</p>
-        <p>${responseJson.foods[i].foodNutrients[1].nutrientName}</p>
-    
-        <p>${responseJson.foods[i].foodNutrients[1].value}</p>
-        <p>${responseJson.foods[i].foodNutrients[2].nutrientName}</p>
-    
-        <p>${responseJson.foods[i].foodNutrients[2].value}</p>
+      `
+      <li  id=${foodList} > <b>  <h3>${responseJson.foods[i].description}</h3> </b></li>
       
       
-      </li>
-      </ul>`
+      `
     );
+    for (let j = 0; j < responseJson.foods[i].foodNutrients.length; j++) {
+      $(`#${foodList}`).append(
+        `<p>${responseJson.foods[i].foodNutrients[j].nutrientName}</p>
+         <p>${responseJson.foods[i].foodNutrients[j].value}</p> `
+      );
+    }
   }
+
   // $("#results-list").append(
   //   `<li><h3>${responseJson.foods[i].description}</h3>
   //   <p>${responseJson.foods[i].foodNutrients[0].nutrientName}</p>
@@ -94,6 +94,9 @@ function displayResults(responseJson) {
   //   </li>`
   //display the results section
   $("#results").removeClass("hidden");
+  $(".store").addClass("hidden");
+  $(".menu").removeClass("hidden");
+  $(".howto").addClass("hidden");
 }
 
 function watchForm() {

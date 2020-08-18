@@ -7,20 +7,75 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <h1>Build a Diet</h1>
+    <header>
+      <!-- <div class="headline">
+        <p>Transformation Through Nutrition Information</p>
+      </div> -->
+    </header>
+    <nav class="navbar">
+      <div class="container">
+        <h1 class="logo">Build A Diet</h1>
+
+        <ul class="nav">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <!-- <li><a href="#specs">Specs</a></li>
+					<li><a href="#contact">Contact</a></li> -->
+        </ul>
+      </div>
+    </nav>
+
+    <section class="section-a" id="about">
+      <div class="container">
+        <div>
+          <h1>Transformation Through Nutrition Information</h1>
+
+          <p class="howto">
+            Input any food you wish to know the nutritional details for as well
+            as the number of results and you will recieve a list of foods that
+            fit that criteria. The details that you will recieve are Protein,
+            Carbohydrates and Total Lipid count.
+          </p>
+        </div>
+        <img src="wholefoods.jpeg" alt="" />
+      </div>
+    </section>
 
     <form action="" id="food-form">
-      <label for="food">Search Our Food Database</label><br />
-      <input type="text" id="food-search" name="food" value="tuna" /><br />
-      <!--<input type="submit" /> -->
-      <label for="js-max-results">Maximum results to return</label>
-      <input type="number" name="max-results" id="js-max-results" value="10" />
-      <button type="submit">Search</button>
+      <label for="food">Search</label><br />
+      <input type="text" id="food-search" name="food" value="TUNA" /><br />
+      <!--<input type="number" /> -->
+      <label for="js-max-results">Results</label>
+      <input
+        type="number"
+        name="max-results"
+        id="js-max-results"
+        value="10"
+        min="1"
+        max="20"
+      />
+      <button class="search" type="submit">Search</button>
     </form>
-    <p id="js-error-message" class="error-message"></p>
-    <section id="results" class="hidden">
+    <!--
+    <div class="container hidden">
+      <img src="server.jpeg" alt="waiter" />
+      <img src="table.jpeg" alt="At a table" />
+    </div>
+
+    <p id="js-error-message" class="error-message"></p> -->
+
+    <section id="results" class="container hidden">
       <h2>Search results</h2>
-      <ul id="results-list"></ul>
+      <div class="search">
+        <ul id="results-list"></ul>
+      </div>
+      <img class="listPic" src="server.jpeg" alt="Server" />
+      <img class="listPic" src="table.jpeg" alt="At a table" />
+      <img class="listPic" src="pasta.jpeg" alt="Pasta" />
+      <img class="listPic" src="pizza.jpeg" alt="Pizza" />
+      <img class="listPic" src="burger.jpeg" alt="Burger" />
+      <img class="listPic" src="chicken.jpeg" alt="chicken" />
+      <img class="listPic" src="parfait.jpeg" alt="Parfait" />
     </section>
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
